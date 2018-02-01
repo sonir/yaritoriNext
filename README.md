@@ -1,0 +1,4 @@
+# vSyn
+# yaritori
+# yaritoriNext
+# yaritoriNext
