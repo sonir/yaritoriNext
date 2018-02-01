@@ -85,10 +85,10 @@ void LineDrawer::update(){
             th = theta + PI * 1.5 + PI * (i-1);
         }
         if(i == 0){
-            x = myPos.x * BASE_HEIGHT;
+            x = myPos.x * BASE_WIDTH;
             y = myPos.y * BASE_HEIGHT;
         }else if(i == turn_num + 1){
-            x = targetPos.x * BASE_HEIGHT;
+            x = targetPos.x * BASE_WIDTH;
             y = targetPos.y * BASE_HEIGHT;
         }else{
             if(preCurrentPhase < 0.5){

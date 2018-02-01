@@ -105,6 +105,7 @@ private:
     float t;
     float size_t;
     bool isFirst;
+    float tremble;
     
 };
 

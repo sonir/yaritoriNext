@@ -89,7 +89,7 @@ void RippleDrawer::updateVertex(){
         for(int i = 0; i < res; i++){
             float th = theta * i;
             if(currentTime - lag[j] > 0){
-                float x = centerX * BASE_HEIGHT + currentRadius * cos(th) * BASE_HEIGHT;
+                float x = centerX * BASE_WIDTH + currentRadius * cos(th) * BASE_HEIGHT;
 //                float x = centerX * ORIGINAL_WIDTH + currentRadius * cos(th) * ORIGINAL_HEIGHT;
                 float y = centerY * BASE_HEIGHT + currentRadius * sin(th) * BASE_HEIGHT;
                 verts[j * res + i].set(x, y);
