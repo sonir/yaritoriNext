@@ -145,8 +145,9 @@ void Csv2Buffer::loadShapes(string withFile){
             for(int i=0; i<elm.edge_count; i++){
 
                 elm.edges[i].node_id_a = std::stoi(nullCheck(words[(i*2)+st]));
-                cout << "EDGE::" << i << " :: edge.a=" << words[(i*2)+st] << endl;
-                cout << "EDGE::" << i << " :: edge.b=" << words[(i*2)+st+1] << endl;
+                
+//                cout << "EDGE::" << i << " :: edge.a=" << words[(i*2)+st] << endl;
+//                cout << "EDGE::" << i << " :: edge.b=" << words[(i*2)+st+1] << endl;
                 elm.edges[i].node_id_b = std::stoi(nullCheck(words[(i*2)+st+1]));
                 
             }
