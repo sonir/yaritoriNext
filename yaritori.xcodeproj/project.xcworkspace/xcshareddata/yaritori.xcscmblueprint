@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9B7F361A00C761942DC1C4DD07F337C62D05893D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9B7F361A00C761942DC1C4DD07F337C62D05893D" : 9223372036854775807,
+    "C49795EECBF0F0C866E077A897AAC32A1E443A59" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3FD7ABB1-DAE2-4A7B-8EC4-C4713AD5DC73",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9B7F361A00C761942DC1C4DD07F337C62D05893D" : "yaritori\/",
+    "C49795EECBF0F0C866E077A897AAC32A1E443A59" : "yaritori\/src\/addons\/slMetro\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "yaritori",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "yaritori.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sonir\/yaritori.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9B7F361A00C761942DC1C4DD07F337C62D05893D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sonir\/slMetro.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C49795EECBF0F0C866E077A897AAC32A1E443A59"
+    }
+  ]
+}
