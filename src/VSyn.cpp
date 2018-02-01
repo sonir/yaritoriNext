@@ -121,8 +121,9 @@ void VSyn::setup(){
 
 void VSyn::update(){
     
+#ifdef DEBUG_MODE
+    cout << "######### ag=" << gismo.agents.count << endl;
     
-    cout << "#########" << gismo.agents.count << endl;
     for(int i=0;i<gismo.agents.count; i++){
      
         ag_t *ag = gismo.getAgent(i);
@@ -137,7 +138,8 @@ void VSyn::update(){
         
         
     }
-    
+#endif
+   
     
     //Test Update
     myTest->update();
