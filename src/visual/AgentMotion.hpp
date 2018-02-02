@@ -72,6 +72,7 @@ public:
 
 private:
     //VBO
+    int nodeNum, edgeNum;
     ofVbo nodeVbo, edgeVbo;
     ofVec2f nodePos[NODE_MAX];
     ofFloatColor nodeColors[NODE_MAX];
@@ -93,14 +94,7 @@ private:
     float modPhase[MOD_NUM];
     float carPhase[MOD_NUM];
     float phase[MOD_NUM];
-//    float modBoost;
-//    float tremorRatio;
-//    float stayRatio;
-    
-//    float sizeModStrength;
-//    float sizeModFloor;
-//    float sizeModStep;
-//    float trembleCenter;
+
     float grayScale;
     float t;
     float size_t;
@@ -108,6 +102,15 @@ private:
     float sizeMod;
     float tremble;
     
+    
+    //    float modBoost;
+    //    float tremorRatio;
+    //    float stayRatio;
+    
+    //    float sizeModStrength;
+    //    float sizeModFloor;
+    //    float sizeModStep;
+    //    float trembleCenter;
 };
 
 

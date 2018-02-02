@@ -180,7 +180,7 @@ void MotionManager::drawAll() {
         agents++;
     }
 
-    lineManager.draw();
+    
 }
 
 void MotionManager::drawSolo() {
@@ -216,7 +216,7 @@ void MotionManager::drawSolo() {
         }
         //agents++;
     }
-    lineManager.draw();
+//    lineManager.draw();
 }
 
 
@@ -227,6 +227,8 @@ void MotionManager::draw() {
     } else {
         drawSolo();
     }
+    
+    lineManager.draw();
 
 //    ofSetColor(ofFloatColor(color));
 //    nodeVbo.updateVertexData(vbo.nodePos, vbo.nodeNum);

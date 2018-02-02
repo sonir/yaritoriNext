@@ -57,7 +57,7 @@ void LineDrawer::update(){
     
     turn_num = int(ofMap(distance, 0., DISPLAY_HEIGHT, 2., TURN_NUM_MAX));
     
-    max_width = size;
+    max_width = size * WAVE_SIZE_RATIO;
     if(max_width > maxR){
         max_width = maxR;
     }

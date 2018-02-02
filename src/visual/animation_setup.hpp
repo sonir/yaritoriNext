@@ -55,11 +55,11 @@ constexpr float EASING_RATIO = 0.1;
 
 /////////////////// WAVEFORM ///////////////////
 constexpr float cycle = 200;   //msec
-constexpr float maxR = 1.0;    //Max amplitude
+constexpr float maxR = 0.5;    //Max amplitude
 constexpr float minR = 0.03;    //Min amplitude
 constexpr int TURN_NUM_MAX = 100;  //num of feature points
 constexpr float PEAK = 0.3;  //peak point of wave amplitude
-constexpr float WAVE_SIZE_RATIO = 0.5;
+constexpr float WAVE_SIZE_RATIO = 0.7;
 
 /////////////////// Ripple ///////////////////
 constexpr float RIPPLE_ALPHA_FIX_BLACK = 0.3;

@@ -23,8 +23,8 @@ AgentMotion::AgentMotion() {
     
     //shader.load("shader/shader.vert", "shader/shader.frag");
     
-//    animationMode = ANIMATION_MODE_NORMAL;
-    animationMode = ANIMATION_MODE_TREMBLE;
+    animationMode = ANIMATION_MODE_NORMAL;
+//    animationMode = ANIMATION_MODE_TREMBLE;
 //    trembleTimer.ready();
     
 //    setModValues();
@@ -80,8 +80,11 @@ void AgentMotion::initModulation() {
 
 void AgentMotion::initVbo() {
     
+    nodeNum = NODE_MAX;
+    edgeNum = EDGE_MAX;
+    
     ofVec2f pos;
-    for(int i = 0; i < pShape->node_count; i++) {
+    for(int i = 0; i < nodeNum; i++) {
         pos.x = ( center.x + (pShape->nodes[i].x * size)) * BASE_HEIGHT;
         pos.y = ( center.y + (pShape->nodes[i].y * size)) * BASE_HEIGHT;
         
@@ -90,7 +93,7 @@ void AgentMotion::initVbo() {
     }
     
     int edge_index;
-    for (int i = 0; i < pShape->edge_count; i++) {
+    for (int i = 0; i < edgeNum; i++) {
         edge_index = i*2;
         edgeIndices[edge_index] = pShape->edges[i].node_id_a;
         edgeIndices[edge_index+1] = pShape->edges[i].node_id_b;
@@ -107,18 +110,18 @@ void AgentMotion::initVbo() {
 }
 
 void AgentMotion::updateColors() {
-    for(int i = 0; i < pShape->node_count; i++) {
+    for(int i = 0; i < nodeNum; i++) {
         nodeColors[i] = ofFloatColor(color);
     }
     int edge_index;
-    for (int i = 0; i < pShape->edge_count * 2; i += 2) {
+    for (int i = 0; i < edgeNum * 2; i += 2) {
         edge_index = i * 0.5;
         edgeColors[i] = ofFloatColor(color);
         edgeColors[i+1] = ofFloatColor(color);
     }
     
-    nodeVbo.updateColorData(nodeColors, pShape->node_count);
-    edgeVbo.updateColorData(edgeColors, pShape->edge_count * 2);
+    nodeVbo.updateColorData(nodeColors, nodeNum);
+    edgeVbo.updateColorData(edgeColors, edgeNum * 2);
 }
 
 void AgentMotion::updateCenter() {
@@ -177,7 +180,7 @@ void AgentMotion::updatePosition() {
     
     ofVec2f pos;
     
-    for(int i = 0; i < pShape->node_count; i++) {
+    for(int i = 0; i < nodeNum; i++) {
         //Modulation by CPU
         float nodeX = (pShape->nodes[i].x + velocityX[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
         float nodeY = (pShape->nodes[i].y + velocityY[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
@@ -193,13 +196,13 @@ void AgentMotion::updatePosition() {
         //Set position into array
         nodePos[i] = pos;
     }
-    nodeVbo.updateVertexData(nodePos, pShape->node_count);
-    edgeVbo.updateVertexData(nodePos, pShape->node_count);
+    nodeVbo.updateVertexData(nodePos, nodeNum);
+    edgeVbo.updateVertexData(nodePos, nodeNum);
 }
 
 void AgentMotion::updateIndex() {
-    for (int i = 0; i < pShape->edge_count; i++) {
-        if(pShape->edges[i].node_id_a < pShape->node_count && pShape->edges[i].node_id_b < pShape->node_count) {
+    for (int i = 0; i < edgeNum; i++) {
+        if(pShape->edges[i].node_id_a < nodeNum && pShape->edges[i].node_id_b < nodeNum) {
             int edge_index = i*2;
             
             edgeIndices[edge_index] = pShape->edges[i].node_id_a;
@@ -208,7 +211,7 @@ void AgentMotion::updateIndex() {
             edgeColors[edge_index+1] = ofFloatColor(color);
         }
     }
-    edgeVbo.updateIndexData(edgeIndices, pShape->edge_count*2);
+    edgeVbo.updateIndexData(edgeIndices, edgeNum*2);
 }
 
 void AgentMotion::updateStep() {
@@ -227,6 +230,12 @@ void AgentMotion::update() {
     
    
     //setModValues();
+    
+    nodeNum = pShape->node_count;
+    edgeNum = pShape->edge_count;
+    
+    if(NODE_MAX < nodeNum) nodeNum = NODE_MAX;
+    if(EDGE_MAX < edgeNum) edgeNum = NODE_MAX;
     
     updateStep();
     updateCenter();
@@ -253,13 +262,13 @@ void AgentMotion::draw() {
 //        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 //        glEnable(GL_BLEND);
         glPointSize(getPointSize());
-        nodeVbo.draw(GL_POINTS, 0, pShape->node_count);
+        nodeVbo.draw(GL_POINTS, 0, nodeNum);
     }
    
     if(pShape->edge_count != 0) {
         glEnable(GL_LINE_SMOOTH);
         glLineWidth(getLineWidth());
-        edgeVbo.drawElements(GL_LINES, pShape->edge_count * 2);
+        edgeVbo.drawElements(GL_LINES, edgeNum * 2);
     }
 //    shader.end();
 }
