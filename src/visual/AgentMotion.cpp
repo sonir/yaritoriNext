@@ -326,6 +326,10 @@ void AgentMotion::setAnimationMode(animation_mode_e _animationMode) {
     //setModValues();
 }
 
+void AgentMotion::setTremble(float val) {
+    tremble=val;
+}
+
 //void AgentMotion::setModValues() {
 //    switch(animationMode) {
 //        case ANIMATION_MODE_NORMAL: {

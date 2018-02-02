@@ -9,6 +9,8 @@
 #ifndef MotionManager_hpp
 #define MotionManager_hpp
 
+//#define SINGLE_VBO
+
 #include "ofMain.h"
 #include "ofxGismo.h"
 #include "ag_shape.h"
@@ -17,6 +19,7 @@
 #include "timed_interpolation.hpp"
 #include "Sound.hpp"
 
+#ifdef SINGLE_VBO
 constexpr int VBO_VERTS_MAX = NODE_MAX * AG_MAX;
 constexpr int VBO_EDGES_MAX = EDGE_MAX * 2 * AG_MAX;
 
@@ -33,6 +36,7 @@ struct shape_buf_t {
     GLint uSizeOffset;
     float pointSize[VBO_VERTS_MAX];
 };
+#endif
 
 class MotionManager : public Event {
 public:
@@ -60,7 +64,10 @@ public:
     void drawAll();
     void drawSolo();
     bool isSoloMode();
-    void setTremble(animation_mode_e state);
+    void enableTremble(animation_mode_e state);
+    void setTremble(float val);
+    
+    
     float aspect;
     
     
@@ -70,7 +77,9 @@ public:
         this->setShapes();
     }
     
+#ifdef SINGLE_VBO
     shape_buf_t shapeBuf;
+#endif
     
 private:
     GismoManager& gismo = GismoManager::getInstance();

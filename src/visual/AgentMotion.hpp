@@ -47,7 +47,10 @@ public:
     float getPointSize();
     float getLineWidth();
     void move(float x, float y);
+    
     void setAnimationMode(animation_mode_e _animationMode);
+    void setTremble(float val);
+    
     
     void setShapePtr(ag_shape_t *shapePtr);
     

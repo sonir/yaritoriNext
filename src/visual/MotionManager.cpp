@@ -23,6 +23,7 @@ MotionManager::MotionManager() {
     setEvents();
 }
 
+#ifdef SINGLE_VBO
 void MotionManager::initVbo() {
     shapeBuf.nodeNum = 0;
     shapeBuf.edgeNum = 0;
@@ -53,6 +54,8 @@ void MotionManager::addEdgeIndices(int id_a, int id_b) {
     shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_b;
     shapeBuf.edgeNum++;
 }
+#endif
+
 
 void MotionManager::setColor(float c) {
     for(int i = 0; i < AG_MAX; i++){
@@ -88,6 +91,13 @@ void MotionManager::setEvents() {
     
     gismo.lambdaAdd("/tremble", trembleEvent);
     
+    
+    auto setTremble = [&](void* args) {
+        param_u* params = (param_u*) args;
+        this->setTremble(params[0].fval);
+    };
+    
+    gismo.lambdaAdd("/tremble/set", setTremble);
     
 }
 
@@ -237,7 +247,7 @@ bool MotionManager::isSoloMode() {
 }
 
 
-void MotionManager::setTremble(animation_mode_e state) {
+void MotionManager::enableTremble(animation_mode_e state) {
     for(int i = 0; i < AG_MAX; i++) {
         agent[i].animationMode = state;
         
@@ -245,3 +255,9 @@ void MotionManager::setTremble(animation_mode_e state) {
 }
 
 
+void MotionManager::setTremble(float val) {
+    for(int i = 0; i < AG_MAX; i++) {
+        agent[i].setTremble(val);
+        
+    }
+}
