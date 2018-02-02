@@ -11,18 +11,10 @@
 
 MotionManager::MotionManager() {
     //Reset solo
-    
-//#ifdef SINGLE_VBO
-//    initVbo();
-//#endif
-    
     soloCount = 0;
     for(int i = 0; i < AG_MAX; i++) {
         isSolo[i] = false;
         soloTimers[i].ready();
-//#ifdef SINGLE_VBO
-//        agent[i].shapeBuf = &this->shapeBuf;
-//#endif
         
     }
     
@@ -31,28 +23,41 @@ MotionManager::MotionManager() {
     setEvents();
 }
 
-//#ifdef SINGLE_VBO
-//void MotionManager::initVbo() {
-//    shapeBuf.nodeNum = 0;
-//    shapeBuf.edgeNum = 0;
-//    shapeBuf.color = 0.0;
-//    
-//    nodeVbo.setAttributeData(shader.getAttributeLocation("point_size"), shapeBuf.pointSize, 1, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
-//    nodeVbo.setVertexData(shapeBuf.nodePos, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
-//    nodeVbo.setColorData(shapeBuf.nodeColors, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
-//    
-//    edgeVbo.setVertexData(shapeBuf.nodePos, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
-//    edgeVbo.setColorData(shapeBuf.edgeColors, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
-//    edgeVbo.setIndexData(shapeBuf.edgeIndices, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
-//}
-//
-//#endif
+void MotionManager::initVbo() {
+    shapeBuf.nodeNum = 0;
+    shapeBuf.edgeNum = 0;
+    shapeBuf.color = 0.0;
+    
+    nodeVbo.setAttributeData(shader.getAttributeLocation("point_size"), shapeBuf.pointSize, 1, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+    nodeVbo.setVertexData(shapeBuf.nodePos, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+    nodeVbo.setColorData(shapeBuf.nodeColors, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+    
+    edgeVbo.setVertexData(shapeBuf.nodePos, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+    edgeVbo.setColorData(shapeBuf.edgeColors, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+    edgeVbo.setIndexData(shapeBuf.edgeIndices, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+}
 
+
+
+void MotionManager::addNode(ofVec2f nodePos, float size) {
+    shapeBuf.nodePos[shapeBuf.nodeNum] = nodePos;
+    shapeBuf.pointSize[shapeBuf.nodeNum] = size;
+    shapeBuf.nodeColors[shapeBuf.nodeNum] = shapeBuf.color;
+    shapeBuf.nodeNum++;
+}
+
+
+void MotionManager::addEdgeIndices(int id_a, int id_b) {
+    shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_a;
+    shapeBuf.edgeNum++;
+    shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_b;
+    shapeBuf.edgeNum++;
+}
 
 void MotionManager::setColor(float c) {
     for(int i = 0; i < AG_MAX; i++){
         agent[i].setColor(c);
-        lineManager.interactLine[i].setColor(c);
+        interactLine[i].setColor(c);
     }
 }
 
@@ -83,13 +88,6 @@ void MotionManager::setEvents() {
     
     gismo.lambdaAdd("/tremble", trembleEvent);
     
-    
-    auto setTremble = [&](void* args) {
-        param_u* params = (param_u*) args;
-        this->setTremble(params[0].fval);
-    };
-    
-    gismo.lambdaAdd("/tremble/set", setTremble);
     
 }
 
@@ -165,14 +163,18 @@ void MotionManager::drawAll() {
                 ag_t* target = gismo.getAgent(targetID);
                 
                 if(ag->condition == CHASE && target->condition == RUN) {
-                    lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+//                    lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                    interactLine[i].myPos.x = agent[i].center.x;
+                    interactLine[i].myPos.y = agent[i].center.y;
+                    interactLine[i].lineTo(agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                    
                 }
             }
         }
         agents++;
     }
 
-    
+//    lineManager.draw();
 }
 
 void MotionManager::drawSolo() {
@@ -200,8 +202,11 @@ void MotionManager::drawSolo() {
                     ag_t* target = gismo.getAgent(targetID);
                     
                     if(ag->condition == CHASE && target->condition == RUN) {
-                        lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
-
+//                        lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                        interactLine[i].myPos.x = agent[i].center.x;
+                        interactLine[i].myPos.y = agent[i].center.y;
+                        interactLine[i].lineTo(agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                        
                     }
                 }
             }
@@ -219,15 +224,12 @@ void MotionManager::draw() {
     } else {
         drawSolo();
     }
-    
-    lineManager.draw();
 
 //    ofSetColor(ofFloatColor(color));
-#ifdef SINGLE_VBO
-    nodeVbo.updateVertexData(shapeBuf.nodePos, shapeBuf.nodeNum);
-    nodeVbo.updateColorData(shapeBuf.nodeColors,  shapeBuf.nodeNum);
-    nodeVbo.draw(GL_POINTS, 0, shapeBuf.nodeNum);
-#endif
+//    nodeVbo.updateVertexData(vbo.nodePos, vbo.nodeNum);
+//    nodeVbo.updateColorData(vbo.nodeColors,  vbo.nodeNum);
+//    nodeVbo.draw(GL_POINTS, 0, vbo.nodeNum);
+    
 }
 
 bool MotionManager::isSoloMode() {
@@ -242,7 +244,7 @@ bool MotionManager::isSoloMode() {
 }
 
 
-void MotionManager::enableTremble(animation_mode_e state) {
+void MotionManager::setTremble(animation_mode_e state) {
     for(int i = 0; i < AG_MAX; i++) {
         agent[i].animationMode = state;
         
@@ -250,9 +252,3 @@ void MotionManager::enableTremble(animation_mode_e state) {
 }
 
 
-void MotionManager::setTremble(float val) {
-    for(int i = 0; i < AG_MAX; i++) {
-        agent[i].setTremble(val);
-        
-    }
-}

@@ -74,17 +74,14 @@ void AgentMotion::initModulation() {
     sizeMod = 0.0f;
     size_t = 0.0f;
     
-    tremble = TREMBLE_AMPLITUDE_DEFAULT;
+    tremble = 0.01;
 }
 
 
 void AgentMotion::initVbo() {
     
-    nodeNum = NODE_MAX;
-    edgeNum = EDGE_MAX;
-    
     ofVec2f pos;
-    for(int i = 0; i < nodeNum; i++) {
+    for(int i = 0; i < pShape->node_count; i++) {
         pos.x = ( center.x + (pShape->nodes[i].x * size)) * BASE_HEIGHT;
         pos.y = ( center.y + (pShape->nodes[i].y * size)) * BASE_HEIGHT;
         
@@ -93,7 +90,7 @@ void AgentMotion::initVbo() {
     }
     
     int edge_index;
-    for (int i = 0; i < edgeNum; i++) {
+    for (int i = 0; i < pShape->edge_count; i++) {
         edge_index = i*2;
         edgeIndices[edge_index] = pShape->edges[i].node_id_a;
         edgeIndices[edge_index+1] = pShape->edges[i].node_id_b;
@@ -110,18 +107,18 @@ void AgentMotion::initVbo() {
 }
 
 void AgentMotion::updateColors() {
-    for(int i = 0; i < nodeNum; i++) {
+    for(int i = 0; i < pShape->node_count; i++) {
         nodeColors[i] = ofFloatColor(color);
     }
     int edge_index;
-    for (int i = 0; i < edgeNum * 2; i += 2) {
+    for (int i = 0; i < pShape->edge_count * 2; i += 2) {
         edge_index = i * 0.5;
         edgeColors[i] = ofFloatColor(color);
         edgeColors[i+1] = ofFloatColor(color);
     }
     
-    nodeVbo.updateColorData(nodeColors, nodeNum);
-    edgeVbo.updateColorData(edgeColors, edgeNum * 2);
+    nodeVbo.updateColorData(nodeColors, pShape->node_count);
+    edgeVbo.updateColorData(edgeColors, pShape->edge_count * 2);
 }
 
 void AgentMotion::updateCenter() {
@@ -180,11 +177,10 @@ void AgentMotion::updatePosition() {
     
     ofVec2f pos;
     
-    float nodeX, nodeY;
-    for(int i = 0; i < nodeNum; i++) {
+    for(int i = 0; i < pShape->node_count; i++) {
         //Modulation by CPU
-        nodeX = (pShape->nodes[i].x + velocityX[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
-        nodeY = (pShape->nodes[i].y + velocityY[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
+        float nodeX = (pShape->nodes[i].x + velocityX[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
+        float nodeY = (pShape->nodes[i].y + velocityY[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
         
         pos.x = (center.x + nodeX) * BASE_WIDTH;
         pos.y = (center.y + nodeY) * BASE_HEIGHT;
@@ -195,39 +191,24 @@ void AgentMotion::updatePosition() {
 //        pos.y = ( center.y + (pShape->nodes[i].y * pAg->size)) * CANVAS_HEIGHT;
         
         //Set position into array
-
         nodePos[i] = pos;
-
-//#ifdef SINGLE_VBO
-//        shapeBuf->nodePos[shapeBuf->nodeNum] = pos;
-//        shapeBuf->nodeNum++;
-//#endif
     }
-    
-    
-    nodeVbo.updateVertexData(nodePos, nodeNum);
-    edgeVbo.updateVertexData(nodePos, nodeNum);
+    nodeVbo.updateVertexData(nodePos, pShape->node_count);
+    edgeVbo.updateVertexData(nodePos, pShape->node_count);
 }
 
 void AgentMotion::updateIndex() {
-    int edge_index;
-    for (int i = 0; i < edgeNum; i++) {
-        if(pShape->edges[i].node_id_a < nodeNum && pShape->edges[i].node_id_b < nodeNum) {
-            edge_index = i*2;
+    for (int i = 0; i < pShape->edge_count; i++) {
+        if(pShape->edges[i].node_id_a < pShape->node_count && pShape->edges[i].node_id_b < pShape->node_count) {
+            int edge_index = i*2;
             
             edgeIndices[edge_index] = pShape->edges[i].node_id_a;
             edgeIndices[edge_index+1] = pShape->edges[i].node_id_b;
             edgeColors[edge_index] = ofFloatColor(color);
             edgeColors[edge_index+1] = ofFloatColor(color);
-//#ifdef SINGLE_VBO
-//            shapeBuf->edgeIndices[shapeBuf->edgeNum] = pShape->edges[i].node_id_a + nodeIDbegin;
-//            shapeBuf->edgeNum++;
-//            shapeBuf->edgeIndices[shapeBuf->edgeNum] = pShape->edges[i].node_id_b + nodeIDbegin;
-//            shapeBuf->edgeNum++;
-//#endif
         }
     }
-    edgeVbo.updateIndexData(edgeIndices, edgeNum*2);
+    edgeVbo.updateIndexData(edgeIndices, pShape->edge_count*2);
 }
 
 void AgentMotion::updateStep() {
@@ -247,16 +228,6 @@ void AgentMotion::update() {
    
     //setModValues();
     
-    nodeNum = pShape->node_count;
-    edgeNum = pShape->edge_count;
-    
-    if(NODE_MAX < nodeNum) nodeNum = NODE_MAX;
-    if(EDGE_MAX < edgeNum) edgeNum = NODE_MAX;
-    
-//#ifdef SIGNLE_VBO
-//    nodeIDbegin = shapeBuf->nodeNum;
-//#endif
-
     updateStep();
     updateCenter();
     updatePhase();
@@ -282,13 +253,13 @@ void AgentMotion::draw() {
 //        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 //        glEnable(GL_BLEND);
         glPointSize(getPointSize());
-        nodeVbo.draw(GL_POINTS, 0, nodeNum);
+        nodeVbo.draw(GL_POINTS, 0, pShape->node_count);
     }
    
     if(pShape->edge_count != 0) {
         glEnable(GL_LINE_SMOOTH);
         glLineWidth(getLineWidth());
-        edgeVbo.drawElements(GL_LINES, edgeNum * 2);
+        edgeVbo.drawElements(GL_LINES, pShape->edge_count * 2);
     }
 //    shader.end();
 }
@@ -353,10 +324,6 @@ void AgentMotion::move(float x, float y) {
 void AgentMotion::setAnimationMode(animation_mode_e _animationMode) {
     animationMode = _animationMode;
     //setModValues();
-}
-
-void AgentMotion::setTremble(float val) {
-    tremble=val;
 }
 
 //void AgentMotion::setModValues() {

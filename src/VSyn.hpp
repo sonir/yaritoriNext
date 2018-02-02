@@ -38,7 +38,7 @@
 #define DEFAULT_RIPPLE_SIZE 1.0f
 #define DEFAULT_RIPPLE_TIME 1.0f
 //SOLO MODE when incoming an agent
-#define SOLO_DURATION 0.5 //4.0
+#define SOLO_DURATION 0.5
 
 
 /// Includes ///

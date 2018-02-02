@@ -23,7 +23,7 @@ public:
     int trigger(void *arg) {        
         param_u *params = (param_u *)arg;
         int id = params[0].ival;
-        int duration = params[1].fval;
+        float duration = params[1].fval;
         
         motionManager->addSolo(id, duration);
         

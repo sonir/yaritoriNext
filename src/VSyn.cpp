@@ -471,7 +471,6 @@ void VSyn::draw(){
     renderer.draw();
     scManager.end();
     scManager.draw();
-    
 #endif
     
     
@@ -566,12 +565,7 @@ void VSyn::draw(){
 }
 
 void VSyn::keyPressed(int key) {
-    switch(key){
-        case 'y': {
-            scManager.setFullScreen();
-            break;
-        }
-    }
+    
 }
 
 void VSyn::initWindowSize(){
