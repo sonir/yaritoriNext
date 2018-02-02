@@ -77,7 +77,7 @@ bullet_shape_t UniBullet::update(pline_t aLine){
             
             tmp[0] = posi.x;
             tmp[1] = posi.y;
-            tmp[2] = 2.5f; // set size ratio
+            tmp[2] = 5.25f; // set size ratio
             tmp[3] = 1.0f; //set time ratio
             
             gismo.bang("/ripple" , &tmp);

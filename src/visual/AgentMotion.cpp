@@ -74,7 +74,7 @@ void AgentMotion::initModulation() {
     sizeMod = 0.0f;
     size_t = 0.0f;
     
-    tremble = 0.01;
+    tremble = TREMBLE_AMPLITUDE_DEFAULT;
 }
 
 
@@ -180,10 +180,11 @@ void AgentMotion::updatePosition() {
     
     ofVec2f pos;
     
+    float nodeX, nodeY;
     for(int i = 0; i < nodeNum; i++) {
         //Modulation by CPU
-        float nodeX = (pShape->nodes[i].x + velocityX[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
-        float nodeY = (pShape->nodes[i].y + velocityY[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
+        nodeX = (pShape->nodes[i].x + velocityX[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
+        nodeY = (pShape->nodes[i].y + velocityY[i] * phase[i % MOD_NUM ] ) * pAg->size * sizeMod * SIZE_FIX;
         
         pos.x = (center.x + nodeX) * BASE_WIDTH;
         pos.y = (center.y + nodeY) * BASE_HEIGHT;
@@ -194,21 +195,36 @@ void AgentMotion::updatePosition() {
 //        pos.y = ( center.y + (pShape->nodes[i].y * pAg->size)) * CANVAS_HEIGHT;
         
         //Set position into array
+
         nodePos[i] = pos;
+
+//#ifdef SINGLE_VBO
+//        shapeBuf->nodePos[shapeBuf->nodeNum] = pos;
+//        shapeBuf->nodeNum++;
+//#endif
     }
+    
+    
     nodeVbo.updateVertexData(nodePos, nodeNum);
     edgeVbo.updateVertexData(nodePos, nodeNum);
 }
 
 void AgentMotion::updateIndex() {
+    int edge_index;
     for (int i = 0; i < edgeNum; i++) {
         if(pShape->edges[i].node_id_a < nodeNum && pShape->edges[i].node_id_b < nodeNum) {
-            int edge_index = i*2;
+            edge_index = i*2;
             
             edgeIndices[edge_index] = pShape->edges[i].node_id_a;
             edgeIndices[edge_index+1] = pShape->edges[i].node_id_b;
             edgeColors[edge_index] = ofFloatColor(color);
             edgeColors[edge_index+1] = ofFloatColor(color);
+//#ifdef SINGLE_VBO
+//            shapeBuf->edgeIndices[shapeBuf->edgeNum] = pShape->edges[i].node_id_a + nodeIDbegin;
+//            shapeBuf->edgeNum++;
+//            shapeBuf->edgeIndices[shapeBuf->edgeNum] = pShape->edges[i].node_id_b + nodeIDbegin;
+//            shapeBuf->edgeNum++;
+//#endif
         }
     }
     edgeVbo.updateIndexData(edgeIndices, edgeNum*2);
@@ -237,6 +253,10 @@ void AgentMotion::update() {
     if(NODE_MAX < nodeNum) nodeNum = NODE_MAX;
     if(EDGE_MAX < edgeNum) edgeNum = NODE_MAX;
     
+//#ifdef SIGNLE_VBO
+//    nodeIDbegin = shapeBuf->nodeNum;
+//#endif
+
     updateStep();
     updateCenter();
     updatePhase();

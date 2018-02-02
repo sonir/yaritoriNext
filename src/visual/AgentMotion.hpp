@@ -18,6 +18,28 @@
 #include "ag_shape.h"
 #include "timed_interpolation.hpp"
 
+
+//#define SINGLE_VBO
+
+//#ifdef SINGLE_VBO
+//constexpr int VBO_VERTS_MAX = NODE_MAX * AG_MAX;
+//constexpr int VBO_EDGES_MAX = EDGE_MAX * 2 * AG_MAX;
+//
+//struct shape_buf_t {
+//    int nodeNum, edgeNum;
+//    
+//    ofFloatColor color;
+//    ofVec2f nodePos[VBO_VERTS_MAX];
+//    ofFloatColor nodeColors[VBO_VERTS_MAX];
+//    //ofVec2f edgePos[NODE_MAX * AG_MAX];
+//    ofIndexType edgeIndices[VBO_EDGES_MAX];
+//    ofFloatColor edgeColors[VBO_EDGES_MAX];
+//    
+//    GLint uSizeOffset;
+//    float pointSize[VBO_VERTS_MAX];
+//};
+//#endif
+
 enum animation_mode_e {
     ANIMATION_MODE_NORMAL,
     ANIMATION_MODE_TREMBLE,
@@ -69,9 +91,16 @@ public:
     ofVec2f center, dest, noise;
     
     animation_mode_e animationMode;
+//#ifdef SINGLE_VBO
+//    shape_buf_t* shapeBuf;
+//#endif
 
 private:
     //VBO
+
+//#ifdef SINGLE_VBO
+//    int nodeIDbegin;
+//#endif
     int nodeNum, edgeNum;
     ofVbo nodeVbo, edgeVbo;
     ofVec2f nodePos[NODE_MAX];

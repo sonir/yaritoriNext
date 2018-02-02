@@ -45,6 +45,7 @@ constexpr float TREMBLE_STEP_BOOST = 70.3;
 constexpr float TREMBLE_RATIO_CENTER = 0.017;    //Center position jumping
 constexpr float TREMBLE_INTERVAL_CENTER = 50;   
 constexpr float TREMBLE_EASING_RATIO = 0.33;    //Slow easing
+constexpr float TREMBLE_AMPLITUDE_DEFAULT = 0.007;
 
 constexpr float TREMBLE_SIZE_MOD_STRENGTH = 0.02;
 constexpr float TREMBLE_SIZE_MOD_FLOOR = 1.0 - TREMBLE_SIZE_MOD_STRENGTH;

@@ -11,10 +11,18 @@
 
 MotionManager::MotionManager() {
     //Reset solo
+    
+//#ifdef SINGLE_VBO
+//    initVbo();
+//#endif
+    
     soloCount = 0;
     for(int i = 0; i < AG_MAX; i++) {
         isSolo[i] = false;
         soloTimers[i].ready();
+//#ifdef SINGLE_VBO
+//        agent[i].shapeBuf = &this->shapeBuf;
+//#endif
         
     }
     
@@ -23,38 +31,22 @@ MotionManager::MotionManager() {
     setEvents();
 }
 
-#ifdef SINGLE_VBO
-void MotionManager::initVbo() {
-    shapeBuf.nodeNum = 0;
-    shapeBuf.edgeNum = 0;
-    shapeBuf.color = 0.0;
-    
-    nodeVbo.setAttributeData(shader.getAttributeLocation("point_size"), shapeBuf.pointSize, 1, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
-    nodeVbo.setVertexData(shapeBuf.nodePos, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
-    nodeVbo.setColorData(shapeBuf.nodeColors, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
-    
-    edgeVbo.setVertexData(shapeBuf.nodePos, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
-    edgeVbo.setColorData(shapeBuf.edgeColors, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
-    edgeVbo.setIndexData(shapeBuf.edgeIndices, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
-}
-
-
-
-void MotionManager::addNode(ofVec2f nodePos, float size) {
-    shapeBuf.nodePos[shapeBuf.nodeNum] = nodePos;
-    shapeBuf.pointSize[shapeBuf.nodeNum] = size;
-    shapeBuf.nodeColors[shapeBuf.nodeNum] = shapeBuf.color;
-    shapeBuf.nodeNum++;
-}
-
-
-void MotionManager::addEdgeIndices(int id_a, int id_b) {
-    shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_a;
-    shapeBuf.edgeNum++;
-    shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_b;
-    shapeBuf.edgeNum++;
-}
-#endif
+//#ifdef SINGLE_VBO
+//void MotionManager::initVbo() {
+//    shapeBuf.nodeNum = 0;
+//    shapeBuf.edgeNum = 0;
+//    shapeBuf.color = 0.0;
+//    
+//    nodeVbo.setAttributeData(shader.getAttributeLocation("point_size"), shapeBuf.pointSize, 1, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+//    nodeVbo.setVertexData(shapeBuf.nodePos, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+//    nodeVbo.setColorData(shapeBuf.nodeColors, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+//    
+//    edgeVbo.setVertexData(shapeBuf.nodePos, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+//    edgeVbo.setColorData(shapeBuf.edgeColors, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+//    edgeVbo.setIndexData(shapeBuf.edgeIndices, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+//}
+//
+//#endif
 
 
 void MotionManager::setColor(float c) {
@@ -231,10 +223,11 @@ void MotionManager::draw() {
     lineManager.draw();
 
 //    ofSetColor(ofFloatColor(color));
-//    nodeVbo.updateVertexData(vbo.nodePos, vbo.nodeNum);
-//    nodeVbo.updateColorData(vbo.nodeColors,  vbo.nodeNum);
-//    nodeVbo.draw(GL_POINTS, 0, vbo.nodeNum);
-    
+#ifdef SINGLE_VBO
+    nodeVbo.updateVertexData(shapeBuf.nodePos, shapeBuf.nodeNum);
+    nodeVbo.updateColorData(shapeBuf.nodeColors,  shapeBuf.nodeNum);
+    nodeVbo.draw(GL_POINTS, 0, shapeBuf.nodeNum);
+#endif
 }
 
 bool MotionManager::isSoloMode() {
