@@ -46,15 +46,15 @@
 
 //EffectValue
 
-//#define PERFORMANCE_SOUND
+#define PERFORMANCE_SOUND
 
 #ifndef PERFORMANCE_SOUND
 // InstallationMode //
-#define EF_VAL_CALM 0.0f//1.0f
-#define EF_VAL_RUN 0.25f//0.75f
-#define EF_VAL_CHASE 0.5f//0.5f
-#define EF_VAL_DMG 0.75f//0.25f
-#define EF_VAL_DEATH 1.0f//1.0f
+#define EF_VAL_CALM 0.25f//0.1f//0.0f//1.0f
+#define EF_VAL_RUN 0.465f//0.25f//0.75f
+#define EF_VAL_CHASE 0.68f //0.5f//0.5f
+#define EF_VAL_DMG 1.0f //0.75f//0.25f
+#define EF_VAL_DEATH 0.0f //1.0f//1.0f
 
 #else
 // PerformanceMode //
