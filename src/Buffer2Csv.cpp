@@ -105,3 +105,42 @@ void Buffer2Csv::saveShapes(ag_shape_t *shapes, int index_count, string withFile
 
     
 }
+
+
+
+void Buffer2Csv::saveSounds(sound_t *sounds, int index_count, string withFile){
+    
+    cout << "----" << endl;
+    cout << "Buffer2Csv :: Export sound as " << withFile << endl;
+
+    ofstream log;
+    log.open(withFile , ios_base::trunc);
+    
+    log << "genre" << "," << "song" << "," << "slice" << "," << "effect_val" << "," << " region" << endl;
+
+    for(int i=0; i<index_count; i++){
+        
+        sound_t *elm = sounds;
+        log << elm->genre << "," << elm->song << ",";
+        log << elm->slice << "," << elm->effect_val << ",";
+        log << elm->region << endl;
+        
+        
+        sounds++;
+        
+        
+    }
+    
+    
+    //Close opened file
+    log.close();
+    
+    //Move the created files on Resources folder in your app to "data" folder.
+    char cmd[256];
+    sprintf(cmd, "sh mv_agent.sh %s" , withFile.c_str());
+    cout << cmd << endl;
+    cout << "CMD1 :: " << system(cmd) << endl;
+
+    
+}
+

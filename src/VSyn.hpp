@@ -222,6 +222,16 @@ class VSyn : public Event {
             gismo.lambdaAdd("/yaritori/add_shape", f7);
 
             
+          
+            //reset agents and shapes
+            auto f8 = [&](void* args){ //<- keep this desctiption
+                
+                sound_unit_t *tmp = (sound_unit_t *)args;
+                sound_unit_t snd = *tmp;
+                soundTrigger.sounds[snd.index]=snd.elm;
+                
+            };
+            gismo.lambdaAdd("/sound/push", f8);
             
         }
     

@@ -82,6 +82,13 @@ typedef struct sound_t {
     
 } sound_t;
 
+typedef struct sound_unit_t {
+    
+    sound_t elm;
+    int index;
+    
+}sound_unit_t;
+
 
 region_e whereAmI(posi_t posi, float width);
 sound_t shape2sound(ag_shape_t shape, int ag_id);
