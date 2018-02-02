@@ -23,8 +23,8 @@ AgentMotion::AgentMotion() {
     
     //shader.load("shader/shader.vert", "shader/shader.frag");
     
-//    animationMode = ANIMATION_MODE_NORMAL;
-    animationMode = ANIMATION_MODE_TREMBLE;
+    animationMode = ANIMATION_MODE_NORMAL;
+//    animationMode = ANIMATION_MODE_TREMBLE;
 //    trembleTimer.ready();
     
 //    setModValues();
