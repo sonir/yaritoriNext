@@ -94,11 +94,6 @@ void Network :: update(){
             }
             
             gismo.bang("/addAgentWithShape" , &shape);
-//            param_u duration;
-//            duration.fval = SOLO_DURATION;
-//            gismo.bang("/solo" , &duration));
-            
-///            gismo.bang("/visual/timed_invert" , &invert_duration);
             dispParams(shape);
             
         } else if (m.getAddress() == "/yaritori/save"){

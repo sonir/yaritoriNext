@@ -222,6 +222,16 @@ class VSyn : public Event {
             gismo.lambdaAdd("/yaritori/add_shape", f7);
 
             
+          
+            //reset agents and shapes
+            auto f8 = [&](void* args){ //<- keep this desctiption
+                
+                sound_unit_t *tmp = (sound_unit_t *)args;
+                sound_unit_t snd = *tmp;
+                soundTrigger.sounds[snd.index]=snd.elm;
+                
+            };
+            gismo.lambdaAdd("/sound/push", f8);
             
         }
     
@@ -230,12 +240,12 @@ class VSyn : public Event {
         void draw();
         void keyPressed(int key);
         void initWindowSize();
-        int trigger(void *args){
+        int trigger(void *args){ //Definicatinon of an event named "/addAgentWithShape"
             
             ag_shape_t *tmp = (ag_shape_t *)args;
             ag_shape_t tmp2 = *tmp;
             addAgShape(tmp2);
-            gismo.addAgent( shape2Agent(tmp2) );
+            gismo.addAgent( shape2Agent(tmp2) ); //add agent from shape
             //make sound
             int index = gismo.agents.count;
             sound_t snd = shape2sound(tmp2, index); //Song genre and song with the shape and ag_id

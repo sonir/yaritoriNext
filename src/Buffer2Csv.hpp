@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "ofxGismo.h"
 #include "ag_shape.h"
+#include "SoundTrigger.hpp"
 
 class Buffer2Csv {
     
@@ -28,6 +29,7 @@ class Buffer2Csv {
     
         void saveAgents(ag_t *agents, int index_count, string withFile);
         void saveShapes(ag_shape_t *shapes, int index_count, string withFile);
+        void saveSounds(sound_t *sounds, int index_count, string withFile);
     
     
         //Variables
