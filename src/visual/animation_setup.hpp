@@ -41,6 +41,7 @@ constexpr float TREMBLE_TREMOR_RATIO = 0.09f;//180119 MODIFIED BY 137 //0.12f;
 constexpr float TREMBLE_STAY_RATIO = 1.0 - TREMOR_RATIO;
 constexpr float TREMBLE_STEP_BOOST = 70.3;
 
+
 constexpr float TREMBLE_RATIO_CENTER = 0.017;    //Center position jumping
 constexpr float TREMBLE_INTERVAL_CENTER = 50;   
 constexpr float TREMBLE_EASING_RATIO = 0.33;    //Slow easing

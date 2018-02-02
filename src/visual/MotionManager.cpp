@@ -23,6 +23,37 @@ MotionManager::MotionManager() {
     setEvents();
 }
 
+void MotionManager::initVbo() {
+    shapeBuf.nodeNum = 0;
+    shapeBuf.edgeNum = 0;
+    shapeBuf.color = 0.0;
+    
+    nodeVbo.setAttributeData(shader.getAttributeLocation("point_size"), shapeBuf.pointSize, 1, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+    nodeVbo.setVertexData(shapeBuf.nodePos, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+    nodeVbo.setColorData(shapeBuf.nodeColors, VBO_VERTS_MAX, GL_DYNAMIC_DRAW);
+    
+    edgeVbo.setVertexData(shapeBuf.nodePos, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+    edgeVbo.setColorData(shapeBuf.edgeColors, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+    edgeVbo.setIndexData(shapeBuf.edgeIndices, VBO_EDGES_MAX, GL_DYNAMIC_DRAW);
+}
+
+
+
+void MotionManager::addNode(ofVec2f nodePos, float size) {
+    shapeBuf.nodePos[shapeBuf.nodeNum] = nodePos;
+    shapeBuf.pointSize[shapeBuf.nodeNum] = size;
+    shapeBuf.nodeColors[shapeBuf.nodeNum] = shapeBuf.color;
+    shapeBuf.nodeNum++;
+}
+
+
+void MotionManager::addEdgeIndices(int id_a, int id_b) {
+    shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_a;
+    shapeBuf.edgeNum++;
+    shapeBuf.edgeIndices[shapeBuf.edgeNum] = id_b;
+    shapeBuf.edgeNum++;
+}
+
 void MotionManager::setColor(float c) {
     for(int i = 0; i < AG_MAX; i++){
         agent[i].setColor(c);
@@ -56,6 +87,7 @@ void MotionManager::setEvents() {
     };
     
     gismo.lambdaAdd("/tremble", trembleEvent);
+    
     
 }
 

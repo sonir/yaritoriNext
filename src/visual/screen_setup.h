@@ -10,7 +10,7 @@
 #define screen_setup_h
 
 //#define DEBUG_MODE_SCREEN
-//#define SINGLE_MODE_SCREEN
+#define SINGLE_MODE_SCREEN
 
 //Length: real length(mm) | input figures on the site
 constexpr float DISPLAY_LENGTH_W = 7111.;
@@ -45,7 +45,7 @@ constexpr float ASPECT_RATE =  5.43333;
 constexpr int ORIGINAL_WIDTH = DISPLAY_WIDTH;   //Ratio :: 5.43333
 constexpr int ORIGINAL_HEIGHT = DISPLAY_HEIGHT;
 
-constexpr int BASE_WIDTH = DISPLAY_HEIGHT / ASPECT_RATE;
+constexpr int BASE_WIDTH = DISPLAY_WIDTH / ASPECT_RATE;
 constexpr int BASE_HEIGHT = DISPLAY_HEIGHT;
 #else
 constexpr int ORIGINAL_WIDTH = DISPLAY_WIDTH * 3 + MARGIN_0 * 2. ;
