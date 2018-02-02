@@ -57,7 +57,7 @@ void MotionManager::addEdgeIndices(int id_a, int id_b) {
 void MotionManager::setColor(float c) {
     for(int i = 0; i < AG_MAX; i++){
         agent[i].setColor(c);
-        lineManager.interactLine[i].setColor(c);
+        interactLine[i].setColor(c);
     }
 }
 
@@ -163,14 +163,18 @@ void MotionManager::drawAll() {
                 ag_t* target = gismo.getAgent(targetID);
                 
                 if(ag->condition == CHASE && target->condition == RUN) {
-                    lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+//                    lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                    interactLine[i].myPos.x = agent[i].center.x;
+                    interactLine[i].myPos.y = agent[i].center.y;
+                    interactLine[i].lineTo(agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                    
                 }
             }
         }
         agents++;
     }
 
-    lineManager.draw();
+//    lineManager.draw();
 }
 
 void MotionManager::drawSolo() {
@@ -198,15 +202,18 @@ void MotionManager::drawSolo() {
                     ag_t* target = gismo.getAgent(targetID);
                     
                     if(ag->condition == CHASE && target->condition == RUN) {
-                        lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
-
+//                        lineManager.lineTo(i, agent[i].center.x, agent[i].center.y, agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                        interactLine[i].myPos.x = agent[i].center.x;
+                        interactLine[i].myPos.y = agent[i].center.y;
+                        interactLine[i].lineTo(agent[targetID].center.x, agent[targetID].center.y, agent[i].size);
+                        
                     }
                 }
             }
         }
         //agents++;
     }
-    lineManager.draw();
+//    lineManager.draw();
 }
 
 

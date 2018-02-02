@@ -76,7 +76,8 @@ private:
     GismoManager& gismo = GismoManager::getInstance();
     ag_shape_t* pShapes;
 
-    LineManager lineManager;
+//    LineManager lineManager;
+    LineDrawer interactLine[AG_MAX];
     ofShader shader;
     TimedInterpolation soloTimers[AG_MAX];
     
