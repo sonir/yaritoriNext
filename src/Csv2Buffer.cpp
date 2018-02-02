@@ -260,6 +260,68 @@ void Csv2Buffer::loadShapes(ag_shape_t *shapes, string withFile){
  
  */
 
+void Csv2Buffer::loadSounds(string withFile){
+
+    cout << "CSV2BuF::LoadSound" << endl;
+
+    //Path to the comma delimited file
+    string filePath = withFile;
+    
+    
+    //Load file placed in bin/data
+    ofFile file(filePath);
+    if(!file.exists()){
+        ofLogError("The file " + filePath + " is missing");
+    }
+    
+    ofBuffer buffer(file);
+    
+    int count = 0;
+
+    
+    //Read file line by line
+    for (ofBuffer::Line it = buffer.getLines().begin(), end = buffer.getLines().end(); it != end; ++it) {
+
+        string line = *it;
+        //Ignore first line of CSV
+        if (buffer.getLines().begin() == it){
+            
+            continue;
+            
+        }
+        
+        //Split line into strings
+        vector<string> words = ofSplitString(line, ",");
+        //Ignore void lines
+        if(words[0]=="")continue;
+        
+        //Store strings into a custom container
+        if (words.size()>=2) {
+            
+            //Storage the params into a struct
+            sound_t elm;
+            
+            elm.genre = std::stoi(nullCheck(words[0]));
+            elm.song = std::stoi(nullCheck(words[1]));
+            elm.slice = std::stoi(nullCheck(words[2]));
+            elm.effect_val = std::stof(nullCheck(words[3]));
+            elm.region = (region_e) std::stoi(nullCheck(words[4]));
+            sound_unit_t unit;
+            unit.elm = elm;
+            unit.index = count;
+            gismo.bang("/sound/push" , &unit);
+            
+        }
+        
+        count++;
+
+        
+    }
+
+    
+    
+}
+
 
 
 string Csv2Buffer::nullCheck(string word){

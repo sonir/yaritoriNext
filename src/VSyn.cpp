@@ -107,7 +107,7 @@ void VSyn::setup(){
     
     myTest->setup();
     //Do Test Code
-    //this->test();
+    this->test();
     
     
     //Load Previous Agents
@@ -767,7 +767,54 @@ void VSyn::test(){
      
 
     //Test SOUND_LOAD
-//    buffer2csv.saveSounds()
+    sound_t testSounds[3];
+    testSounds[0].genre=11;
+    testSounds[0].song=12;
+    testSounds[0].slice=13;
+    testSounds[0].effect_val=1.4;
+    testSounds[0].region=(region_e)15;
+    
+    
+    testSounds[1].genre=21;
+    testSounds[1].song=22;
+    testSounds[1].slice=23;
+    testSounds[1].effect_val=2.4;
+    
+    
+    testSounds[2].genre=31;
+    testSounds[2].song=32;
+    testSounds[2].slice=33;
+    testSounds[2].effect_val=3.4;
+    
+    
+    testSounds[1].region=(region_e)25;
+    testSounds[2].region=(region_e)35;
+    buffer2csv.saveSounds(testSounds, 3, "test_sound.csv");
+    //CSV2BUFFER :: SOUND
+    csv2buffer.loadSounds("test_sound.csv");
+    
+    //cout << soundTrigger.sounds[0].genre << endl;
+    assert(soundTrigger.sounds[0].genre == 11);
+    assert(soundTrigger.sounds[1].genre == 21);
+    assert(soundTrigger.sounds[2].genre == 31);
+    assert(soundTrigger.sounds[0].song == 12);
+    assert(soundTrigger.sounds[1].song == 22);
+    assert(soundTrigger.sounds[2].song == 32); //<<
+    assert(soundTrigger.sounds[0].slice == 13);
+    assert(soundTrigger.sounds[1].slice == 23);
+    assert(soundTrigger.sounds[2].slice == 33);
+    assert(soundTrigger.sounds[0].effect_val == 1.4f);
+    assert(soundTrigger.sounds[1].effect_val == 2.4f);
+    assert(soundTrigger.sounds[2].effect_val == 3.4f);
+    assert((int)soundTrigger.sounds[0].region == 15);
+    assert((int)soundTrigger.sounds[1].region == 25);
+    assert((int)soundTrigger.sounds[2].region == 35);
+    
+    cout << soundTrigger.sounds[0].song << endl;
+    cout << soundTrigger.sounds[1].song << endl;
+    cout << soundTrigger.sounds[2].song << endl;
+
+    
     
     
     
