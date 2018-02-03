@@ -72,6 +72,14 @@ void Network :: update(){
         } else if( m.getAddress() == "/yaritori/post" /*"/que"*/ ){ //Receiving Agents
             
             cout << "Network :: /outline received" << endl;
+            
+            if(gismo.agents.count >= (AG_MAX*0.9) ){
+             
+                cout << "agent max reached." << endl;
+                return;
+                
+            }
+            
             shape.color = m.getArgAsFloat(INDEX_OF_COLOR);
             shape.node_count = m.getArgAsInt32(INDEX_OF_NODE);
             int index_of_edge_count = (shape.node_count*2)+2;

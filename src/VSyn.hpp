@@ -78,7 +78,7 @@
 
 
 //AudioTriger with OSC
-#include "Sound.hpp"
+//#include "Sound.hpp"
 
 //Drawing
 #include "drawAgents.hpp"
@@ -302,7 +302,7 @@ class VSyn : public Event {
         Test *myTest; //Test Instance
         GismoManager& gismo = GismoManager::getInstance(); //Pointer for gismoManager instance
         DrawAgentsWithChar drawAgentsWithChar;
-        Sound sound; //AudioTrigger with OSC
+        //Sound sound; //AudioTrigger with OSC
         //Sound
         SoundTrigger soundTrigger;    
 

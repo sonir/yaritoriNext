@@ -13,7 +13,7 @@
 
 
 //AG BUF SETUPS
-#define AG_MAX 9000
+#define AG_MAX 330//9000
 #define SEED_MAX 63
 
 //World Rate of Space

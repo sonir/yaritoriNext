@@ -11,7 +11,7 @@
 
 #include "MotionManager.hpp"
 #include "RippleManager.hpp"
-#include "Sound.hpp"
+//#include "Sound.hpp"
 
 
 class Solo : public Event {

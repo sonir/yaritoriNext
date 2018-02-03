@@ -55,7 +55,6 @@
 		F2450093200B1A1A00454D28 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2450091200B1A1A00454D28 /* Bullet.cpp */; };
 		F251DC9B2006A49E005D2472 /* Shape2Agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F251DC992006A49E005D2472 /* Shape2Agent.cpp */; };
 		F2545E8E1F99B73F0029709A /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2545E8D1F99B73F0029709A /* Particle.cpp */; };
-		F27A52F81FEC634F00942A31 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27A52F61FEC634F00942A31 /* Sound.cpp */; };
 		F27A52FE1FEC78FE00942A31 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27A52FC1FEC78FE00942A31 /* Event.cpp */; };
 		F27A53011FEC82DA00942A31 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F27A52FF1FEC82DA00942A31 /* EventHandler.cpp */; };
 		F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */; };
@@ -295,8 +294,6 @@
 		F2545E8D1F99B73F0029709A /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		F26D88141F6B638600AC27FE /* cam_func.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cam_func.hpp; sourceTree = "<group>"; };
 		F27445B91FE0FC1A00914A85 /* agTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = agTypes.h; sourceTree = "<group>"; };
-		F27A52F61FEC634F00942A31 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
-		F27A52F71FEC634F00942A31 /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sound.hpp; sourceTree = "<group>"; };
 		F27A52FC1FEC78FE00942A31 /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 		F27A52FD1FEC78FE00942A31 /* Event.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
 		F27A52FF1FEC82DA00942A31 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventHandler.cpp; sourceTree = "<group>"; };
@@ -820,8 +817,6 @@
 			children = (
 				F20C6C282013168800CF0DA3 /* SoundTrigger.cpp */,
 				F20C6C292013168800CF0DA3 /* SoundTrigger.hpp */,
-				F27A52F61FEC634F00942A31 /* Sound.cpp */,
-				F27A52F71FEC634F00942A31 /* Sound.hpp */,
 			);
 			name = Sound;
 			sourceTree = "<group>";
@@ -1035,7 +1030,6 @@
 				63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */,
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,
 				F21DCD0A2008D0D7003BCC42 /* Metro.cpp in Sources */,
-				F27A52F81FEC634F00942A31 /* Sound.cpp in Sources */,
 				F2AD7E4A2021BB9100EA22B2 /* Buffer2Csv.cpp in Sources */,
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
