@@ -107,7 +107,7 @@ void RippleManager::update(){
     if(motion->isSoloMode()) { //When solo, update only ag ripples
         activeNumCounter = 0;
         for(int j = 0; j < AG_MAX; j++){
-            if(ripples[j].isRunning == true && motion->isSolo[j]){
+            if(ripples[j].isRunning && motion->isSolo[ripples[j].targetAg]){
                 for(int i = 0; i < res * rippleNum; i++){
                     verts[activeNumCounter * res * rippleNum + i] = ripples[j].verts[i];
                     cols[activeNumCounter * res * rippleNum + i] = ripples[j].cols[i];
@@ -138,16 +138,29 @@ void RippleManager::draw(){
 }
 
 void RippleManager::agBang(int id, float size, float time) {
+    int index = 0;
+    
+    while (ripples[index].isRunning) {
+        index++;
+        if (AG_MAX <= index) {
+            index = 0;
+            break;
+        }
+    }
+    
+    
+    
     ag_t* ag = gismo.getAgent(id);
-    ripples[id].bang(ag->posi.x, ag->posi.y, size, time);
+    ripples[index].targetAg = id;
+    ripples[index].bang(ag->posi.x, ag->posi.y, size, time);
 }
 
 void RippleManager::bang(float posX, float posY, float size_ratio, float time_ratio){
-    int index = 0;
+    int index = AG_MAX;
     while(ripples[index].isRunning == true){
         index++;
         if(index > NUM){
-            index = 0;
+            index = AG_MAX;
             break;
         }
     }
@@ -164,7 +177,7 @@ void RippleManager::invert(){
 
 int RippleManager::trigger(void* args) {    // To call from eventhandler
     float *val = (float *)args;
-        
+    
     this->bang(val[0], val[1], val[2], val[3]); //FIRE!!!!!!!!!!!!!!
     
     return 1;

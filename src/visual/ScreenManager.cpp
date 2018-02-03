@@ -97,6 +97,22 @@ void ScreenManager::initMask(){
         n++;
     }
 
+    
+    mask_pos[0].set(0.0048 * DISPLAY_WIDTH, 0.0092 * DISPLAY_HEIGHT);
+    mask_pos[1].set(0.9374 * DISPLAY_WIDTH, 0.04 * DISPLAY_HEIGHT);
+    mask_pos[2].set(0.9917 * DISPLAY_WIDTH, 0.8776 * DISPLAY_HEIGHT);
+    mask_pos[3].set(0.0007 * DISPLAY_WIDTH, 0.8945 * DISPLAY_HEIGHT);
+    
+    mask_pos[4].set(0.0038 * DISPLAY_WIDTH, 0.0479 * DISPLAY_HEIGHT);
+    mask_pos[5].set(0.998 * DISPLAY_WIDTH, 0.048 * DISPLAY_HEIGHT);
+    mask_pos[6].set(0.9991 * DISPLAY_WIDTH, 0.9563 * DISPLAY_HEIGHT);
+    mask_pos[7].set(0.0042 * DISPLAY_WIDTH, 0.9673 * DISPLAY_HEIGHT);
+    
+    mask_pos[8].set(0.0679 * DISPLAY_WIDTH, 0.0679 * DISPLAY_HEIGHT);
+    mask_pos[9].set(0.9984 * DISPLAY_WIDTH, 0.0489 * DISPLAY_HEIGHT);
+    mask_pos[10].set(0.9465 * DISPLAY_WIDTH, 0.942 * DISPLAY_HEIGHT);
+    mask_pos[11].set(0.0442 * DISPLAY_WIDTH, 0.9366 * DISPLAY_HEIGHT);
+    
     for(int i = 0; i < 3; i++){
         mask_pos[i * 4].set(0, 0);
         mask_pos[i * 4 + 1].set(DISPLAY_WIDTH, 0);
@@ -271,6 +287,7 @@ void ScreenManager::setAllColor(float _bgColor) {
 
         param.fval = BACKGROUND_COLOR_DEFAULT;
         gismo.lambdaBang("/bgColor", &param);
+        
     } else {
         //Reset Colors for solo;
         param_u param;

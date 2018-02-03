@@ -565,7 +565,14 @@ void VSyn::draw(){
 }
 
 void VSyn::keyPressed(int key) {
-    
+    switch (key) {
+        case 'y':
+            scManager.setFullScreen();
+            break;
+            
+        default:
+            break;
+    }
 }
 
 void VSyn::initWindowSize(){
