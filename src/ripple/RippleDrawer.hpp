@@ -33,11 +33,12 @@ public:
     
     static const int res = 64;
     static const int rippleNum = 2;
+    int targetAg;
     
     ofVec2f verts[res * rippleNum];
     ofIndexType indices[res * rippleNum * 2];
     ofFloatColor cols[res * rippleNum];
-
+    
 private:
     void updateColor();
     void updateVertex();

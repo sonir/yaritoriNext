@@ -41,7 +41,7 @@ public:
     
     
 private:
-    static constexpr float lineWidth = 0.8; //pixel
+    static constexpr float lineWidth = 200.0; //pixel
     
     static const int res = 64;
     static const int rippleNum = 2;
