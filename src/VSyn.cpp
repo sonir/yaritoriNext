@@ -95,7 +95,7 @@ void VSyn::setup(){
 #endif
     
     //Create TestClass
-    myTest = new Test(&sound, &ripple);
+    myTest = new Test();
     myTest->setup();
 
     //Init agent
@@ -122,6 +122,9 @@ void VSyn::setup(){
 
 void VSyn::update(){
     
+    
+//    cout << frand() << endl;
+    
 #ifdef DEBUG_MODE
     cout << "######### ag=" << gismo.agents.count << endl;
     
@@ -144,7 +147,7 @@ void VSyn::update(){
     
     //Test Update
     myTest->update();
-    if( !sound.bankIsEmpty()) sound.update();
+//    if( !sound.bankIsEmpty()) sound.update();
         
     
     //sync();

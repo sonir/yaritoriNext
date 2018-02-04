@@ -15,7 +15,7 @@
 #include "AgentMotion.hpp"
 #include "LineManager.hpp"
 #include "timed_interpolation.hpp"
-#include "Sound.hpp"
+//#include "Sound.hpp"
 
 constexpr int VBO_VERTS_MAX = NODE_MAX * AG_MAX;
 constexpr int VBO_EDGES_MAX = EDGE_MAX * 2 * AG_MAX;

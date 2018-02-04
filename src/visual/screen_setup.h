@@ -9,7 +9,7 @@
 #ifndef screen_setup_h
 #define screen_setup_h
 
-//#define DEBUG_MODE_SCREEN
+#define DEBUG_MODE_SCREEN
 //#define SINGLE_MODE_SCREEN
 
 //Length: real length(mm) | input figures on the site

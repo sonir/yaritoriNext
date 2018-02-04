@@ -13,7 +13,7 @@
 #include <cassert>
 #include "ofxGismo.h"
 #include "ag_shape.h"
-#include "Sound.hpp"
+//#include "Sound.hpp"
 #include "drawAgents.hpp"
 #include "RippleManager.hpp"
 #include "Shape2Agent.hpp"
@@ -25,7 +25,7 @@
 class Test {
 
     public:
-        Test(Sound *pSnd, RippleManager *pRipple);
+        Test();
         void setup();
         void run();
         void runSubTest(void* args);
@@ -43,7 +43,7 @@ class Test {
     
     
         GismoManager& gismo = GismoManager::getInstance(); //Pointer for gismoManager instance
-        Sound *sound;
+//        Sound *sound;
 //        SoundTrigger soundTest;
     
 

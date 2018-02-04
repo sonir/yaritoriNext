@@ -13,7 +13,7 @@
 
 
 //AG BUF SETUPS
-#define AG_MAX 9000
+#define AG_MAX 9000 //9000
 #define SEED_MAX 63
 
 //World Rate of Space
@@ -34,6 +34,10 @@
 #define SPD_LIMIT 0.016f //0.02f(for slow) ,, 0.03f
 #define SPD_FIX 0.007f //0.01f
 #define SPD_RANDOM_WALK_FIX 0.1f
+
+#define DEFAULT_VIEW_RATIO 4.94f//14.35f //1.0f
+#define DEFAULT_MOV_RATIO 9.25f //1.0f
+
 
 #include <iostream>
 #include <math.h>
@@ -107,8 +111,8 @@ class GismoManager : public EventHandler {
         float height_rate = WORLD_HEIGHT;
 
         //Global param control
-        float view_ratio = 1.0f;
-        float mov_ratio = 1.0f;
+        float view_ratio = DEFAULT_VIEW_RATIO;
+        float mov_ratio = DEFAULT_MOV_RATIO;
     
     
         //Methods
