@@ -508,7 +508,9 @@ void setSeed(int seed){
 
 float frand(){
     
-    return ( ( (float)( rand()%10 ) ) * 0.1 );
+    //return ( ( (float)( rand()%10 ) ) * 0.1 );
+    return ( ( (float)( rand()%10000 ) ) * 0.0001 );
+
     
 }
 

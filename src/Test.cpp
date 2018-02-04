@@ -160,6 +160,7 @@ void Test :: run(){
     
     
     //Test isViewRange
+    /* REST FOR  VIEW/MOV  RATE
     ag_t ag5;
     ag5.view = 0.5f;
     assert( isViewRange(&ag5,0.3f)==true );
@@ -170,7 +171,8 @@ void Test :: run(){
     assert( isLarge(0.5 , 0.4)==true );
     assert( isLarge(0.5, 0.501)==false);
     cout << "gismoLibrary::isaLarge is OK" <<endl;
-    
+
+     
     //Test Move
     ag_t ag6;
     posi_t tmp;
@@ -233,7 +235,7 @@ void Test :: run(){
     ag9.posi.x = 1.0f; ag9.posi.y = 1.0f;
     ag8.view = 1.5;
     interactWith(&ag8 , &ag9);
-    
+    */
     
     //TestReset
     agents[0].active=true;
