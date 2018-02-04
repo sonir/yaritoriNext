@@ -117,8 +117,8 @@ void AgentMotion::updateColors() {
         edgeColors[i+1] = ofFloatColor(color);
     }
     
-    nodeVbo.updateColorData(nodeColors, pShape->node_count);
-    edgeVbo.updateColorData(edgeColors, pShape->edge_count * 2);
+//    nodeVbo.updateColorData(nodeColors, pShape->node_count);
+//    edgeVbo.updateColorData(edgeColors, pShape->edge_count * 2);
 }
 
 void AgentMotion::updateCenter() {
@@ -246,6 +246,9 @@ void AgentMotion::draw() {
 //    shader.setUniform1fv("modStep", modStep);
 //    shader.setUniform1f("centerX", center.x*screenWidth);
 //    shader.setUniform1f("centerY", center.y*screenWidth);
+    
+    nodeVbo.updateColorData(nodeColors, pShape->node_count);
+    edgeVbo.updateColorData(edgeColors, pShape->edge_count * 2);
     
     if(pShape->node_count != 0) {
 //        glEnable(GL_POINT_SMOOTH);

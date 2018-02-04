@@ -107,7 +107,7 @@ void VSyn::setup(){
     
     myTest->setup();
     //Do Test Code
-    this->test();
+//    this->test();
     
     
     //Load Previous Agents
@@ -116,6 +116,7 @@ void VSyn::setup(){
 //    csv2buffter.createAgents(gismo.add.buf, "0-agents.csv");
 
 
+    scManager.setFullScreen();
 }
 
 
@@ -456,7 +457,7 @@ void VSyn::draw(){
     //Ripple
     ripple.draw();
     
-    ofSetColor(scManager.getDrawColor());
+//    ofSetColor(scManager.getDrawColor());
 
     performanceManager.updateLines();
     performanceManager.updateLinesInverted();
@@ -468,7 +469,6 @@ void VSyn::draw(){
         renderer.draw();
     }
     
-    renderer.draw();
     scManager.end();
     scManager.draw();
 #endif
@@ -569,7 +569,9 @@ void VSyn::keyPressed(int key) {
         case 'y':
             scManager.setFullScreen();
             break;
-            
+        case 'e':
+            ofExit();
+            break;
         default:
             break;
     }

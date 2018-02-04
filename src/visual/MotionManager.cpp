@@ -116,6 +116,7 @@ void MotionManager::addSolo(int _id, float duration) {
 void MotionManager::deleteSolo(int _id) {
     isSolo[_id] = false;
     soloCount--;
+    soloTimers[_id].ready();
 }
 
 
