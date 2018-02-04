@@ -65,7 +65,6 @@ void ScreenManager::initStatus(){
         resetTrimPos(i);
     }
 }
-
 void ScreenManager::initMask(){
     int n = 0;
     for(int i = 0; i < 3; i++){
@@ -96,42 +95,34 @@ void ScreenManager::initMask(){
         mask_indices[n] = i*8 + 4;
         n++;
     }
-
     
-    mask_pos[0].set(0.0048 * DISPLAY_WIDTH, 0.0092 * DISPLAY_HEIGHT);
-    mask_pos[1].set(0.9374 * DISPLAY_WIDTH, 0.04 * DISPLAY_HEIGHT);
-    mask_pos[2].set(0.9917 * DISPLAY_WIDTH, 0.8776 * DISPLAY_HEIGHT);
-    mask_pos[3].set(0.0007 * DISPLAY_WIDTH, 0.8945 * DISPLAY_HEIGHT);
+    mask_pos[0].set(ofVec2f(0.004, 0.006) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[1].set(ofVec2f(0.933, 0.04) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[2].set(ofVec2f(0.9855, 0.872) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[3].set(ofVec2f(0., 0.8839) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
     
-    mask_pos[4].set(0.0038 * DISPLAY_WIDTH, 0.0479 * DISPLAY_HEIGHT);
-    mask_pos[5].set(0.998 * DISPLAY_WIDTH, 0.048 * DISPLAY_HEIGHT);
-    mask_pos[6].set(0.9991 * DISPLAY_WIDTH, 0.9563 * DISPLAY_HEIGHT);
-    mask_pos[7].set(0.0042 * DISPLAY_WIDTH, 0.9673 * DISPLAY_HEIGHT);
+    mask_pos[4].set(ofVec2f(0.00555, 0.0565) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[5].set(ofVec2f(0.994, 0.0514) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[6].set(ofVec2f(0.9962, 0.9502) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[7].set(ofVec2f(0.0064, 0.9652) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
     
-    mask_pos[8].set(0.0679 * DISPLAY_WIDTH, 0.0679 * DISPLAY_HEIGHT);
-    mask_pos[9].set(0.9984 * DISPLAY_WIDTH, 0.0489 * DISPLAY_HEIGHT);
-    mask_pos[10].set(0.9465 * DISPLAY_WIDTH, 0.942 * DISPLAY_HEIGHT);
-    mask_pos[11].set(0.0442 * DISPLAY_WIDTH, 0.9366 * DISPLAY_HEIGHT);
+    mask_pos[8].set(ofVec2f(0.0681, 0.046) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[9].set(ofVec2f(0.997, 0.026) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[10].set(ofVec2f(0.946, 0.91) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+    mask_pos[11].set(ofVec2f(0.0457, 0.908) * ofVec2f(DISPLAY_WIDTH, DISPLAY_HEIGHT));
     
-    for(int i = 0; i < 3; i++){
-        mask_pos[i * 4].set(0, 0);
-        mask_pos[i * 4 + 1].set(DISPLAY_WIDTH, 0);
-        mask_pos[i * 4 + 2].set(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-        mask_pos[i * 4 + 3].set(0, DISPLAY_HEIGHT);
-    }
-
     for(int i = 0; i < 3; i++){
         mask_verts[i * 8].set(DISPLAY_WIDTH * i, 0);
         mask_verts[i * 8 + 1].set(DISPLAY_WIDTH * (i + 1), 0);
         mask_verts[i * 8 + 2].set(DISPLAY_WIDTH * (i + 1), DISPLAY_HEIGHT);
         mask_verts[i * 8 + 3].set(DISPLAY_WIDTH * i, DISPLAY_HEIGHT);
-
+        
         mask_verts[i * 8 + 4].set(mask_pos[i * 4]);
         mask_verts[i * 8 + 5].set(mask_pos[i * 4 + 1]);
         mask_verts[i * 8 + 6].set(mask_pos[i * 4 + 2]);
         mask_verts[i * 8 + 7].set(mask_pos[i * 4 + 3]);
     }
-
+    
     for(int i = 0; i < 24; i++){
 #ifdef DEBUG_MODE_SCREEN
         mask_cols[i] = ofFloatColor(0, 0, 0, 100);
@@ -139,12 +130,11 @@ void ScreenManager::initMask(){
         mask_cols[i] = ofFloatColor(0, 0, 0, 255);
 #endif
     }
-
+    
     mask_vbo.setVertexData(mask_verts, 4 * 6, GL_DYNAMIC_DRAW);
     mask_vbo.setColorData(mask_cols, 24, GL_STATIC_DRAW);
     mask_vbo.setIndexData(mask_indices, 6 * 6 * 2, GL_STATIC_DRAW);
 }
-
 void ScreenManager::setEvents() {
 
     auto swapEvent = [&](void* args) {
