@@ -9,8 +9,8 @@
 #ifndef screen_setup_h
 #define screen_setup_h
 
-//#define DEBUG_MODE_SCREEN
-//#define SINGLE_MODE_SCREEN
+#define DEBUG_MODE_SCREEN   //Show all area
+//#define SINGLE_MODE_SCREEN    //Just change aspect
 
 //Length: real length(mm) | input figures on the site
 constexpr float DISPLAY_LENGTH_W = 7111.;

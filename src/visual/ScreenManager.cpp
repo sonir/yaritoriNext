@@ -309,9 +309,14 @@ void ScreenManager::setBackground(float c) {
 }
 
 void ScreenManager::setFullScreen() {
+#if defined(SINGLE_MODE_SCREEN) || defined(DEBUG_MODE_SCREEN)
+    ofSetWindowShape(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    ofSetWindowPosition(0, 0);
+#else
     ofSetFullscreen(true);
     ofSetWindowShape(APP_WIDTH, APP_HEIGHT);
     ofSetWindowPosition(MASTER_WIDTH, 0); //y: height of mbpr display
+#endif
 }
 
 void ScreenManager::setFullScreenConfig() {
